@@ -2,8 +2,11 @@
   "name": "energy-monitoring-data-platform",
   "private": true,
   "scripts": {
-    "dev": "python -m uvicorn app.main:app --reload",
+    "dev": "cross-env PYTHONPATH=src python -m uvicorn app.main:app --reload",
     "lint": "python -m ruff check .",
     "format": "python -m ruff format ."
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
   }
 }
