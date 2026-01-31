@@ -1,12 +1,8 @@
 from fastapi import FastAPI
+from app.api.routes.health import router as health_router
+from app.api.routes.energy_records import router as energy_records_router
 
-app = FastAPI(title="Energy Monitoring Data Platform")
+app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"status": "ok"}
-
-@app.get("/other")
-def read_other():
-    return {"message": "other from /other"}
-    
+app.include_router(energy_records_router)
+app.include_router(health_router)
