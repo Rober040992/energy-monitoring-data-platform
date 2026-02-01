@@ -1,14 +1,14 @@
 from __future__ import annotations
 # Routes only
 from fastapi import APIRouter, HTTPException, Query, status
-from app.api.schemas.energy_record import (
+from app.api.schemas.schemas_energy_record import (
     EnergyRecordCreate,
     EnergyRecordResponse,
     EnergyRecordUpdate,
     EnergyRecordValidateResponse,
     DataQuality,
 )
-from app.api.schemas.quality import QualitySummaryResponse
+from app.api.schemas.schema_quality import QualitySummaryResponse
 
 router = APIRouter(tags=["energy-records"])
 

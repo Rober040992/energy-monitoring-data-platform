@@ -1,5 +1,5 @@
-from core.entities.energy_record import EnergyRecord
-from core.rules.data_quality import classify_data_quality
+from core.entities.entities_energy_record import EnergyRecord
+from core.rules.rules_data_quality import classify_data_quality
 
 # Use case that processes a single energy record.
 # It coordinates domain entities and rules, without persistence or frameworks.

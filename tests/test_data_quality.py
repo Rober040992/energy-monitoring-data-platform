@@ -1,4 +1,4 @@
-from core.rules.data_quality import (
+from core.rules.rules_data_quality import (
     classify_data_quality,
     DATA_QUALITY_VALID,
     DATA_QUALITY_INCONSISTENT,

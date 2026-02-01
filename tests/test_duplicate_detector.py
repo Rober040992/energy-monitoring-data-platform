@@ -1,5 +1,5 @@
 from datetime import date
-from core.entities.energy_record import EnergyRecord
+from core.entities.entities_energy_record import EnergyRecord
 from core.services.duplicate_detector import count_duplicates
 
 def test_counts_duplicates_correctly():
