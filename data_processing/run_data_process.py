@@ -1,8 +1,8 @@
 from datetime import date
-from use_cases.process_energy_record import process_energy_record
+from data_processing.process_energy_record import process_energy_record
 
 result = process_energy_record(
-    building_id="b-1",
+    building_id="building-314",
     date=date(2024, 1, 1),
     consumption=10.0,
     temperature=22.0,
