@@ -30,10 +30,6 @@ async def list_energy_records(
 async def get_energy_record(record_id: str) -> EnergyRecordResponse:
     raise HTTPException(status_code=status.HTTP_501_NOT_IMPLEMENTED, detail="Not implemented yet")
 
-@router.post("/energy-records", response_model=EnergyRecordResponse, status_code=status.HTTP_201_CREATED)
-async def create_energy_record(payload: EnergyRecordCreate) -> EnergyRecordResponse:
-    raise HTTPException(status_code=status.HTTP_501_NOT_IMPLEMENTED, detail="Not implemented yet")
-
 @router.patch("/energy-records/{record_id}", response_model=EnergyRecordResponse)
 async def update_energy_record(record_id: str, payload: EnergyRecordUpdate) -> EnergyRecordResponse:
     #  Must recalculate data_quality after update.

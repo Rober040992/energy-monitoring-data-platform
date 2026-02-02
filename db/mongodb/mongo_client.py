@@ -1,12 +1,13 @@
 from __future__ import annotations
 import os
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
+from dotenv import load_dotenv
 
+load_dotenv()
 
 _client: AsyncIOMotorClient | None = None
 
 def get_mongo_db() -> AsyncIOMotorDatabase:
-
     global _client
 
     if _client is None:
