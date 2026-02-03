@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Optional
+from datetime import date
 
 # Possible data quality values
 DATA_QUALITY_VALID = "valid"
@@ -13,6 +14,7 @@ def classify_data_quality(
     provider: Optional[str],
     consumption: Optional[float],
     temperature: Optional[float],
+    date_value: Optional[date] = None,
 ) -> str:
     # Deterministic rules. Never trust client-provided data_quality.
 
@@ -24,9 +26,15 @@ def classify_data_quality(
 
     if consumption <= 0:
         return DATA_QUALITY_INCONSISTENT
+    
+    if consumption > 1_000_000:
+        return DATA_QUALITY_INCONSISTENT
 
     # Basic realistic range for ambient temperature (can be adjusted later).
     if temperature < -20 or temperature > 55:
+        return DATA_QUALITY_INCONSISTENT
+    
+    if date_value and date_value > date.today():
         return DATA_QUALITY_INCONSISTENT
 
     return DATA_QUALITY_VALID
