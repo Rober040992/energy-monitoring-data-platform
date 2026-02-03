@@ -1,10 +1,8 @@
-# core/services/duplicate_detector.py
 from __future__ import annotations
 from typing import Iterable, Tuple
 from core.entities.entities_energy_record import EnergyRecord
 
 # Composite key used to identify duplicates
-# (building_id, date, provider)
 DuplicateKey = Tuple[str, str, str]  # (building_id, date_iso, provider)
 
 # Builds the unique key used to detect duplicates
