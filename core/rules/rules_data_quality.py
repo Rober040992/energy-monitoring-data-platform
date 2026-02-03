@@ -26,7 +26,7 @@ def classify_data_quality(
         return DATA_QUALITY_INCONSISTENT
 
     # Basic realistic range for ambient temperature (can be adjusted later).
-    if temperature < -50 or temperature > 60:
+    if temperature < -20 or temperature > 55:
         return DATA_QUALITY_INCONSISTENT
 
     return DATA_QUALITY_VALID

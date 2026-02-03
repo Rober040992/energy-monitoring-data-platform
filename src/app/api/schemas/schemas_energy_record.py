@@ -8,11 +8,11 @@ DataQuality = Literal["valid", "inconsistent", "incomplete"]
 
 class EnergyRecordCreate(BaseModel):
     # Client input (data_quality is NOT accepted). Used by POST /energy-records and :validate
-    building_id: str = Field(..., min_length=1, examples=["building_001"])
+    building_id: str = Field(..., min_length=1, max_length=40, examples=["building_001"])
     date: datetime.date = Field(..., examples=["2026-01-30"])
     consumption: float = Field(..., gt=0, examples=[12.5])
     temperature: float = Field(..., examples=[21.3])
-    provider: str = Field(..., min_length=1, examples=["provider_a"])
+    provider: str = Field(..., min_length=1,max_length=40, examples=["provider_a"])
 
 class EnergyRecordUpdate(BaseModel):
     # Partial update (PATCH).
@@ -20,7 +20,7 @@ class EnergyRecordUpdate(BaseModel):
     date: Optional[datetime.date] = None
     consumption: Optional[float] = Field(None, gt=0)
     temperature: Optional[float] = None
-    provider: Optional[str] = Field(None, min_length=1)
+    provider: Optional[str] = Field(None, min_length=1, max_length=40)
 
 class EnergyRecordResponse(BaseModel):
     # API output schema.
@@ -32,6 +32,14 @@ class EnergyRecordResponse(BaseModel):
     provider: str
     data_quality: DataQuality
     created_at: datetime.datetime
+
+class EnergyRecordValidateInput(BaseModel):
+    # Permissive input ONLY for :validate
+    building_id: Optional[str] = Field(None, examples=["building_001"])
+    date: Optional[datetime.date] = Field(None, examples=["2026-01-30"])
+    consumption: Optional[float] = Field(None, examples=[12.5])
+    temperature: Optional[float] = Field(None, examples=[21.3])
+    provider: Optional[str] = Field(None, examples=["provider_a"])
 
 class EnergyRecordValidateResponse(BaseModel):
     # Validation result without persisting.

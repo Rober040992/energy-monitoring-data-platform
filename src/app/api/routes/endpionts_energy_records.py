@@ -2,10 +2,8 @@ from __future__ import annotations
 # Routes only
 from fastapi import APIRouter, HTTPException, Query, status
 from app.api.schemas.schemas_energy_record import (
-    EnergyRecordCreate,
     EnergyRecordResponse,
     EnergyRecordUpdate,
-    EnergyRecordValidateResponse,
     DataQuality,
 )
 from app.api.schemas.schema_quality import QualitySummaryResponse
@@ -38,11 +36,6 @@ async def update_energy_record(record_id: str, payload: EnergyRecordUpdate) -> E
 @router.delete("/energy-records/{record_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_energy_record(record_id: str) -> None:
     return None # no data to send cause is a delete
-
-@router.post("/energy-records:validate", response_model=EnergyRecordValidateResponse)
-async def validate_energy_record(payload: EnergyRecordCreate) -> EnergyRecordValidateResponse:
-    #  Validate + compute data_quality + duplicate check without storing.
-    raise HTTPException(status_code=status.HTTP_501_NOT_IMPLEMENTED, detail="Not implemented yet")
 
 @router.get("/quality/summary", response_model=QualitySummaryResponse)
 async def get_quality_summary() -> QualitySummaryResponse:
