@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import APIRouter, status
 from app.api.schemas.schemas_energy_record import (
     EnergyRecordCreate,
@@ -34,7 +34,7 @@ async def create_energy_record(payload: EnergyRecordCreate) -> EnergyRecordRespo
         "temperature": record.temperature,
         "provider": record.provider,
         "data_quality": data_quality,
-        "created_at": datetime.utcnow(),
+        "created_at": datetime.now(timezone.utc),
     }
     # Store the document in mongo and get the generated id
     record_id = await insert_energy_record(document)
