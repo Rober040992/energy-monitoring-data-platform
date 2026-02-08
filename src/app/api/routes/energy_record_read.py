@@ -16,7 +16,7 @@ async def list_energy_records(
 
     cursor = (
         db[ENERGY_RECORDS_COLLECTION]
-        .find({})
+        .find({}) # filters will implemented
         .skip(skip)
         .limit(limit)
     )

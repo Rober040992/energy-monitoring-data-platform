@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 from fastapi import APIRouter
 from typing import cast
 from app.api.schemas.schemas_energy_record import (
@@ -8,6 +7,8 @@ from app.api.schemas.schemas_energy_record import (
     DataQuality,
 )
 from core.rules.rules_data_quality import classify_data_quality
+from db.mongodb.mongo_client import get_mongo_db
+from db.mongodb.mongo_energy_record import ENERGY_RECORDS_COLLECTION
 
 router = APIRouter(tags=["energy-records"])
 
@@ -23,9 +24,19 @@ async def validate_energy_record(
             temperature=payload.temperature,
         ),
     )
-    # Minimal duplicate check inside the same request:
-    # with a single record payload, it can never be a duplicate by definition.
-    is_duplicate = False
+    
+    is_duplicate = False # default avoid the lack of data
+    if payload.building_id and payload.date and payload.provider:
+        # no lack of data then check de DDBB
+        db = get_mongo_db()
+        document = await db[ENERGY_RECORDS_COLLECTION].find_one(
+            {
+                "building_id": payload.building_id,
+                "provider": payload.provider,
+                # i will include date if need
+            }
+        )
+        is_duplicate = document is not None # if document then duplicate true
 
     return EnergyRecordValidateResponse(
         data_quality=data_quality,
